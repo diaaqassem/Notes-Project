@@ -39,10 +39,11 @@
       --danger: #f87171;
       --success: #4ade80;
       --pin-color: #facc15;
+      --star-gold: #FFD700;
+      --star-yellow: #FFEB3B;
     }
 
     body {
-      zoom: 1.2;
       background: var(--bg-primary);
       min-height: 100vh;
       color: var(--text-primary);
@@ -57,6 +58,130 @@
       height: 100%;
       pointer-events: none;
       z-index: 9999;
+    }
+
+    /* Center Star Container */
+    .center-star-container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Center Star Animation */
+    @keyframes centerStarBurst {
+      0% {
+        transform: scale(0) rotate(0deg);
+        opacity: 0;
+      }
+      20% {
+        transform: scale(1.5) rotate(45deg);
+        opacity: 1;
+      }
+      40% {
+        transform: scale(2) rotate(90deg);
+        opacity: 1;
+      }
+      60% {
+        transform: scale(2.5) rotate(135deg);
+        opacity: 0.8;
+      }
+      80% {
+        transform: scale(2) rotate(180deg);
+        opacity: 0.4;
+      }
+      100% {
+        transform: scale(3) rotate(225deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes centerStarPulse {
+      0% {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+      25% {
+        transform: scale(1.2);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.5);
+        opacity: 1;
+      }
+      75% {
+        transform: scale(1.8);
+        opacity: 0.7;
+      }
+      100% {
+        transform: scale(2.5);
+        opacity: 0;
+      }
+    }
+
+    @keyframes floatingGoldStar {
+      0% {
+        transform: translate(0, 0) scale(0.3) rotate(0deg);
+        opacity: 0;
+      }
+      20% {
+        transform: translate(-20px, -30px) scale(0.8) rotate(45deg);
+        opacity: 1;
+      }
+      40% {
+        transform: translate(20px, -60px) scale(1) rotate(90deg);
+        opacity: 1;
+      }
+      60% {
+        transform: translate(-15px, -100px) scale(1.2) rotate(135deg);
+        opacity: 0.8;
+      }
+      80% {
+        transform: translate(15px, -140px) scale(0.8) rotate(180deg);
+        opacity: 0.4;
+      }
+      100% {
+        transform: translate(0, -180px) scale(0.3) rotate(225deg);
+        opacity: 0;
+      }
+    }
+
+    .center-star {
+      position: absolute;
+      font-size: 80px;
+      filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8));
+      animation: centerStarBurst 1.5s ease-out forwards;
+    }
+
+    .center-star-pulse {
+      position: absolute;
+      font-size: 60px;
+      filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
+      animation: centerStarPulse 1.2s ease-out forwards;
+    }
+
+    .floating-gold-star {
+      position: absolute;
+      font-size: 40px;
+      filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+      animation: floatingGoldStar 1.8s ease-out forwards;
+    }
+
+    @media (max-width: 768px) {
+      .center-star {
+        font-size: 50px;
+      }
+      .center-star-pulse {
+        font-size: 40px;
+      }
+      .floating-gold-star {
+        font-size: 25px;
+      }
     }
 
     /* Custom Scrollbar */
@@ -432,7 +557,7 @@
       font-size: 0.75rem;
     }
     
-    /* Grid Layout - Mobile: 2 columns exactly */
+    /* Grid Layout */
     .tasks-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -456,7 +581,7 @@
       }
     }
     
-    /* Task Card - Larger text on mobile */
+    /* Task Card */
     .task-card {
       background: var(--bg-secondary);
       border-radius: 16px;
@@ -468,45 +593,6 @@
       flex-direction: column;
       position: relative;
       overflow: hidden;
-    }
-    
-    /* Star animation effect on complete - longer duration */
-    @keyframes starBurstLong {
-      0% {
-        transform: scale(0) rotate(0deg);
-        opacity: 1;
-      }
-      50% {
-        transform: scale(1.2) rotate(90deg);
-        opacity: 0.8;
-      }
-      100% {
-        transform: scale(2) rotate(180deg);
-        opacity: 0;
-      }
-    }
-    
-    @keyframes floatingStar {
-      0% {
-        transform: translateY(0) translateX(0) scale(0.5);
-        opacity: 1;
-      }
-      25% {
-        transform: translateY(-30px) translateX(-15px) scale(1);
-        opacity: 0.9;
-      }
-      50% {
-        transform: translateY(-60px) translateX(15px) scale(1.2);
-        opacity: 0.7;
-      }
-      75% {
-        transform: translateY(-90px) translateX(-10px) scale(0.8);
-        opacity: 0.4;
-      }
-      100% {
-        transform: translateY(-120px) translateX(10px) scale(0.3);
-        opacity: 0;
-      }
     }
     
     @keyframes glowPulse {
@@ -529,22 +615,6 @@
     
     .task-card.completing {
       animation: glowPulse 0.5s ease-out;
-    }
-    
-    .task-card .star-effect {
-      position: absolute;
-      pointer-events: none;
-      font-size: 24px;
-      animation: starBurstLong 1.2s ease-out forwards;
-      z-index: 10;
-    }
-    
-    .task-card .floating-star {
-      position: absolute;
-      pointer-events: none;
-      font-size: 20px;
-      animation: floatingStar 1.5s ease-out forwards;
-      z-index: 10;
     }
     
     @media (min-width: 768px) {
@@ -722,7 +792,7 @@
       gap: 4px;
     }
     
-    /* Description styling - Larger text */
+    /* Description styling */
     .task-desc-card {
       font-size: 0.9rem;
       color: var(--text-secondary);
@@ -961,7 +1031,7 @@
       canvas.height = window.innerHeight;
       
       const particles = [];
-      const colors = ['#6366f1', '#a855f7', '#facc15', '#4ade80', '#f97373', '#fbbf6b'];
+      const colors = ['#FFD700', '#FFEB3B', '#FFC107', '#FFAB00', '#FFA000'];
       
       for (let i = 0; i < 150; i++) {
         particles.push({
@@ -1011,24 +1081,53 @@
       animate();
     }
     
-    // Star effect on task complete - longer and more stars
-    function createStarEffect(x, y) {
-      const stars = ['⭐', '✨', '🌟', '⭐', '💫', '⭐', '✨', '🌟'];
-      for (let i = 0; i < 16; i++) {
+    // Center Star Effect - Golden stars in the middle of screen
+    function createCenterStarEffect() {
+      const container = document.createElement('div');
+      container.className = 'center-star-container';
+      document.body.appendChild(container);
+      
+      // Create main center star
+      const stars = ['⭐', '🌟', '⭐', '🌟', '⭐'];
+      const mainStar = stars[Math.floor(Math.random() * stars.length)];
+      
+      const centerStar = document.createElement('div');
+      centerStar.className = 'center-star';
+      centerStar.innerHTML = mainStar;
+      centerStar.style.color = '#FFD700';
+      container.appendChild(centerStar);
+      
+      // Create pulse star
+      setTimeout(() => {
+        const pulseStar = document.createElement('div');
+        pulseStar.className = 'center-star-pulse';
+        pulseStar.innerHTML = '⭐';
+        pulseStar.style.color = '#FFEB3B';
+        container.appendChild(pulseStar);
+        setTimeout(() => pulseStar.remove(), 1200);
+      }, 200);
+      
+      // Create floating golden stars around center
+      for (let i = 0; i < 12; i++) {
         setTimeout(() => {
-          const star = document.createElement('div');
-          const isFloating = i > 8;
-          star.className = isFloating ? 'floating-star' : 'star-effect';
-          star.innerHTML = stars[Math.floor(Math.random() * stars.length)];
-          const offsetX = (Math.random() - 0.5) * 100;
-          const offsetY = (Math.random() - 0.5) * 80 - 40;
-          star.style.left = (x + offsetX) + 'px';
-          star.style.top = (y + offsetY) + 'px';
-          star.style.fontSize = (Math.random() * 20 + 20) + 'px';
-          document.body.appendChild(star);
-          setTimeout(() => star.remove(), 1500);
-        }, i * 80);
+          const floatingStar = document.createElement('div');
+          floatingStar.className = 'floating-gold-star';
+          const starList = ['⭐', '🌟', '✨', '💫', '⭐'];
+          floatingStar.innerHTML = starList[Math.floor(Math.random() * starList.length)];
+          floatingStar.style.color = ['#FFD700', '#FFEB3B', '#FFC107'][Math.floor(Math.random() * 3)];
+          const angle = (i / 12) * Math.PI * 2;
+          const radius = Math.random() * 150 + 50;
+          floatingStar.style.left = Math.cos(angle) * radius + 'px';
+          floatingStar.style.top = Math.sin(angle) * radius + 'px';
+          container.appendChild(floatingStar);
+          setTimeout(() => floatingStar.remove(), 1800);
+        }, i * 100);
       }
+      
+      // Remove container after animation
+      setTimeout(() => {
+        container.remove();
+      }, 2000);
     }
     
     backupBtn.addEventListener("click", (e) => { e.stopPropagation(); backupMenu.classList.toggle("show"); });
@@ -1060,12 +1159,7 @@
         // Show celebration effects when completing a task
         if (isChecked && !wasCompleted) {
           createConfetti();
-          // Create multiple stars around the checkbox
-          const checkbox = document.querySelector(`.task-check[data-id="${taskId}"]`);
-          if (checkbox) {
-            const rect = checkbox.getBoundingClientRect();
-            createStarEffect(rect.left + rect.width/2, rect.top + rect.height/2);
-          }
+          createCenterStarEffect();
         }
       } 
     }
