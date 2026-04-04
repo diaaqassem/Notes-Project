@@ -42,10 +42,20 @@
     }
 
     body {
-      zoom: 1.2;
       background: var(--bg-primary);
       min-height: 100vh;
       color: var(--text-primary);
+    }
+
+    /* Confetti Canvas */
+    #confetti-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
     }
 
     /* Custom Scrollbar */
@@ -445,26 +455,64 @@
       }
     }
     
-    /* Task Card - Larger text on mobile */
+    /* Task Card */
     .task-card {
       background: var(--bg-secondary);
       border-radius: 16px;
       padding: 14px;
       border: 1px solid var(--card-border);
-      transition: all 0.2s;
-      min-height: auto;
-      /* in-height: 260px; */
+      transition: all 0.3s ease;
       max-height: 320px;
       display: flex;
       flex-direction: column;
       position: relative;
+      overflow: hidden;
+    }
+    
+    /* Star animation effect on complete */
+    @keyframes starBurst {
+      0% {
+        transform: scale(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1.5) rotate(180deg);
+        opacity: 0;
+      }
+    }
+    
+    @keyframes glowPulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(99, 102, 241, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+      }
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-3px); }
+      75% { transform: translateX(3px); }
+    }
+    
+    .task-card.completing {
+      animation: glowPulse 0.5s ease-out;
+    }
+    
+    .task-card .star-effect {
+      position: absolute;
+      pointer-events: none;
+      font-size: 20px;
+      animation: starBurst 0.6s ease-out forwards;
+      z-index: 10;
     }
     
     @media (min-width: 768px) {
       .task-card {
-        min-height: autoS;
-        
-        /* min-height: 280px; */
         max-height: 360px;
         padding: 18px;
         border-radius: 18px;
@@ -482,7 +530,8 @@
     }
     
     .task-card.completed-task {
-      opacity: 0.7;
+      opacity: 0.8;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(168, 85, 247, 0.05));
     }
     
     /* Internal scrollable content */
@@ -496,7 +545,6 @@
       gap: 10px;
     }
     
-    /* Thin scrollbar */
     .task-card-scroll::-webkit-scrollbar {
       width: 3px;
     }
@@ -528,9 +576,12 @@
       margin-top: 2px;
       flex-shrink: 0;
       position: relative;
+      transition: all 0.2s ease;
     }
     .task-check:checked {
-      background: var(--accent);
+      background: var(--success);
+      border-color: var(--success);
+      animation: shake 0.3s ease;
     }
     .task-check:checked::after {
       content: "\f00c";
@@ -599,6 +650,7 @@
     .action-icon:hover {
       background: var(--hover-bg);
       color: var(--accent);
+      transform: scale(1.1);
     }
     .pin-icon.active {
       color: var(--pin-color);
@@ -634,7 +686,7 @@
       gap: 4px;
     }
     
-    /* Description styling - Larger text */
+    /* Description styling */
     .task-desc-card {
       font-size: 0.8rem;
       color: var(--text-secondary);
@@ -743,6 +795,8 @@
   </style>
 </head>
 <body>
+  <canvas id="confetti-canvas"></canvas>
+  
   <div id="authContainer" class="auth-container">
     <div class="auth-card">
       <h2><i class="fas fa-cloud"></i></h2>
@@ -773,7 +827,7 @@
   <div id="appContainer" class="app-container">
     <div class="header">
       <div class="title-section">
-        <h1><i class="fas fa-cloud"></i> </h1>
+        <h1><i class="fas fa-cloud"></i></h1>
       </div>
       <div class="user-info">
         <i class="fas fa-user-circle"></i>
@@ -863,6 +917,75 @@
     let currentUser = null, tasks = [], currentStatusFilter = "all", currentCategoryFilter = "All", searchQuery = "", sortMode = "date_asc", currentEditTaskId = null, currentImageDataUrls = [], editImageDataUrls = [];
     const authContainer = document.getElementById("authContainer"), appContainer = document.getElementById("appContainer"), tasksContainer = document.getElementById("tasksContainer"), addBtn = document.getElementById("addTaskBtn"), searchInput = document.getElementById("searchInput"), sortSelect = document.getElementById("sortSelect"), clearCompletedBtn = document.getElementById("clearCompletedBtn"), clearAllBtn = document.getElementById("clearAllBtn"), progressFill = document.getElementById("progressFill"), progressPercent = document.getElementById("progressPercent"), logoutBtn = document.getElementById("logoutBtn"), userEmailDisplay = document.getElementById("userEmailDisplay"), syncStatusText = document.getElementById("syncStatusText"), editModal = document.getElementById("editModal"), backupBtn = document.getElementById("backupBtn"), backupMenu = document.getElementById("backupMenu"), imageInput = document.getElementById("imageInput"), imageUploadArea = document.getElementById("imageUploadArea"), imagePreviewContainer = document.getElementById("imagePreviewContainer"), editImageInput = document.getElementById("editImageInput"), editImageUploadArea = document.getElementById("editImageUploadArea"), editImageGrid = document.getElementById("editImageGrid");
     
+    // Confetti Effect
+    function createConfetti() {
+      const canvas = document.getElementById('confetti-canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      
+      const particles = [];
+      const colors = ['#6366f1', '#a855f7', '#facc15', '#4ade80', '#f97373', '#fbbf6b'];
+      
+      for (let i = 0; i < 100; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          size: Math.random() * 6 + 2,
+          speedY: Math.random() * 5 + 3,
+          speedX: (Math.random() - 0.5) * 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          rotation: Math.random() * 360,
+          rotationSpeed: (Math.random() - 0.5) * 10
+        });
+      }
+      
+      let animationId;
+      let startTime = Date.now();
+      
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        let allFinished = true;
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          p.y += p.speedY;
+          p.x += p.speedX;
+          p.rotation += p.rotationSpeed;
+          
+          if (p.y < canvas.height + 50) {
+            allFinished = false;
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.rotation * Math.PI / 180);
+            ctx.fillStyle = p.color;
+            ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
+            ctx.restore();
+          }
+        }
+        
+        if (!allFinished && Date.now() - startTime < 2000) {
+          animationId = requestAnimationFrame(animate);
+        } else {
+          cancelAnimationFrame(animationId);
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      }
+      
+      animate();
+    }
+    
+    // Star effect on task complete
+    function createStarEffect(x, y) {
+      const star = document.createElement('div');
+      star.className = 'star-effect';
+      star.innerHTML = ['⭐', '✨', '🌟', '⭐', '💫'][Math.floor(Math.random() * 5)];
+      star.style.left = x + 'px';
+      star.style.top = y + 'px';
+      document.body.appendChild(star);
+      setTimeout(() => star.remove(), 600);
+    }
+    
     backupBtn.addEventListener("click", (e) => { e.stopPropagation(); backupMenu.classList.toggle("show"); });
     document.addEventListener("click", (e) => { if (!backupBtn.contains(e.target) && !backupMenu.contains(e.target)) backupMenu.classList.remove("show"); });
     imageUploadArea.addEventListener("click", () => imageInput.click());
@@ -879,7 +1002,33 @@
     function loadUserTasks() { if(currentUser) { const stored = localStorage.getItem(getStorageKeyForUser(currentUser.email)); if(stored) { tasks = JSON.parse(stored); tasks = tasks.map(t => ({ ...t, pinned: t.pinned || false, description: t.description || "", images: t.images || [], completed: t.completed || false })); } else { tasks = []; saveUserTasks(); } renderTasks(); updateProgressBar(); } }
     function updateProgressBar() { const total = tasks.length, completedCount = tasks.filter(t => t.completed === true).length, percent = total === 0 ? 0 : Math.round((completedCount / total) * 100); progressFill.style.width = `${percent}%`; progressPercent.innerText = `${percent}%`; }
     function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, (m) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); }
-    function toggleTaskCompletion(taskId, isChecked) { const task = tasks.find(t => t.id === taskId); if(task) { task.completed = isChecked; saveUserTasks(); renderTasks(); updateProgressBar(); } }
+    
+    function toggleTaskCompletion(taskId, isChecked) { 
+      const task = tasks.find(t => t.id === taskId); 
+      if(task) { 
+        const wasCompleted = task.completed;
+        task.completed = isChecked; 
+        saveUserTasks(); 
+        renderTasks(); 
+        updateProgressBar();
+        
+        // Show celebration effects when completing a task
+        if (isChecked && !wasCompleted) {
+          createConfetti();
+          // Create multiple stars around the checkbox
+          const checkbox = document.querySelector(`.task-check[data-id="${taskId}"]`);
+          if (checkbox) {
+            const rect = checkbox.getBoundingClientRect();
+            for (let i = 0; i < 8; i++) {
+              setTimeout(() => {
+                createStarEffect(rect.left + rect.width/2 + (Math.random() - 0.5) * 60, rect.top + rect.height/2 + (Math.random() - 0.5) * 60);
+              }, i * 50);
+            }
+          }
+        }
+      } 
+    }
+    
     function getFilteredSortedTasks() { let filtered = tasks.filter(t => { if(currentStatusFilter === "completed" && !t.completed) return false; if(currentStatusFilter === "pending" && t.completed) return false; if(currentCategoryFilter !== "All" && t.category !== currentCategoryFilter) return false; if(searchQuery.trim() && !t.title.toLowerCase().includes(searchQuery.toLowerCase())) return false; return true; }); if(sortMode === "date_asc") filtered.sort((a,b) => (a.dueDate || "9999-12-31").localeCompare(b.dueDate || "9999-12-31")); else if(sortMode === "date_desc") filtered.sort((a,b) => (b.dueDate || "9999-12-31").localeCompare(a.dueDate || "9999-12-31")); else if(sortMode === "priority") { const order = { "High":1, "Medium":2, "Low":3 }; filtered.sort((a,b) => (order[a.priority]||3) - (order[b.priority]||3)); } filtered.sort((a,b) => (b.pinned?1:0) - (a.pinned?1:0)); return filtered; }
     
     function showAllImages(taskId) {
