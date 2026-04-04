@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>TaskFlow Pro | Multi-Image Notes</title>
+  <title>TaskFlow Pro</title>
   <link rel="icon" type="image/png" href="./head.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -42,6 +42,7 @@
     }
 
     body {
+      zoom: 1.2;
       background: var(--bg-primary);
       min-height: 100vh;
       color: var(--text-primary);
@@ -741,8 +742,7 @@
 <body>
   <div id="authContainer" class="auth-container">
     <div class="auth-card">
-      <h2><i class="fas fa-cloud"></i> TaskFlow Pro</h2>
-      <p style="color: var(--text-muted); font-size: 0.8rem; text-align: center; margin-bottom: 20px;">Multi-image notes • Backup & Restore</p>
+      <h2><i class="fas fa-cloud"></i></h2>
       <div id="authForm"></div>
     </div>
   </div>
@@ -770,8 +770,7 @@
   <div id="appContainer" class="app-container">
     <div class="header">
       <div class="title-section">
-        <h1><i class="fas fa-cloud"></i> TaskFlow Pro</h1>
-        <p>Multi-image notes • Backup & Restore</p>
+        <h1><i class="fas fa-cloud"></i> </h1>
       </div>
       <div class="user-info">
         <i class="fas fa-user-circle"></i>
@@ -955,7 +954,7 @@
     window.showAllImages = showAllImages;
     window.exportData = function() { const dataStr = JSON.stringify({ version:"1.0", exportDate:new Date().toISOString(), user:currentUser.email, tasks }, null, 2); const blob = new Blob([dataStr], {type:"application/json"}); const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `taskflow_backup_${currentUser.email}_${Date.now()}.json`; a.click(); URL.revokeObjectURL(a.href); syncStatusText.innerHTML = '✓ Export complete'; setTimeout(() => syncStatusText.innerHTML = '☁️ Cloud', 2000); backupMenu.classList.remove("show"); };
     window.importData = function() { const input = document.createElement("input"); input.type = "file"; input.accept = "application/json"; input.onchange = (e) => { const file = e.target.files[0]; const reader = new FileReader(); reader.onload = (ev) => { try { const imported = JSON.parse(ev.target.result); if(imported.tasks && Array.isArray(imported.tasks)) { tasks = imported.tasks.map(t => ({ ...t, id: Date.now() + Math.random(), images: t.images || [], completed: t.completed || false, pinned: t.pinned || false })); saveUserTasks(); renderTasks(); updateProgressBar(); syncStatusText.innerHTML = '✓ Import successful'; setTimeout(() => syncStatusText.innerHTML = '☁️ Cloud', 2000); } else alert("Invalid backup file format"); } catch(err) { alert("Error importing file"); } }; reader.readAsText(file); }; input.click(); backupMenu.classList.remove("show"); };
-    window.resetData = function() { if(confirm("⚠️ WARNING: This will delete ALL your tasks. This action cannot be undone. Continue?")) { tasks = []; saveUserTasks(); renderTasks(); updateProgressBar(); syncStatusText.innerHTML = '✓ All cleared'; setTimeout(() => syncStatusText.innerHTML = '☁️ Cloud', 2000); } backupMenu.classList.remove("show"); };
+    window.resetData = function() { if(confirm(" WARNING: This will delete ALL your tasks. This action cannot be undone. Continue?")) { tasks = []; saveUserTasks(); renderTasks(); updateProgressBar(); syncStatusText.innerHTML = '✓ All cleared'; setTimeout(() => syncStatusText.innerHTML = '☁️ Cloud', 2000); } backupMenu.classList.remove("show"); };
     function initFilters() { document.querySelectorAll("#statusFilters .filter-chip").forEach(btn => { btn.addEventListener("click", () => { document.querySelectorAll("#statusFilters .filter-chip").forEach(b => b.classList.remove("active")); btn.classList.add("active"); currentStatusFilter = btn.dataset.filter; renderTasks(); }); }); document.querySelectorAll("#categoryFilters .filter-chip").forEach(btn => { btn.addEventListener("click", () => { document.querySelectorAll("#categoryFilters .filter-chip").forEach(b => b.classList.remove("active")); btn.classList.add("active"); currentCategoryFilter = btn.dataset.cat; renderTasks(); }); }); searchInput.addEventListener("input", (e) => { searchQuery = e.target.value; renderTasks(); }); sortSelect.addEventListener("change", (e) => { sortMode = e.target.value; renderTasks(); }); clearCompletedBtn.addEventListener("click", () => { tasks = tasks.filter(t => !t.completed); saveUserTasks(); renderTasks(); updateProgressBar(); }); clearAllBtn.addEventListener("click", () => { if(confirm("Delete ALL tasks permanently?")) { tasks = []; saveUserTasks(); renderTasks(); updateProgressBar(); } }); }
     const usersKey = "taskflow_pro_users";
     function getUsers() { const users = localStorage.getItem(usersKey); return users ? JSON.parse(users) : []; }
