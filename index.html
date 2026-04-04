@@ -420,7 +420,7 @@
       font-size: 0.75rem;
     }
     
-    /* Grid Layout - Mobile: 2 columns for better visibility */
+    /* Grid Layout - Mobile: 2 columns exactly */
     .tasks-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -444,15 +444,15 @@
       }
     }
     
-    /* Task Card - Clear and visible on mobile */
+    /* Task Card - Larger text on mobile */
     .task-card {
       background: var(--bg-secondary);
       border-radius: 16px;
-      padding: 12px;
+      padding: 14px;
       border: 1px solid var(--card-border);
       transition: all 0.2s;
-      min-height: 240px;
-      max-height: 300px;
+      min-height: 260px;
+      max-height: 320px;
       display: flex;
       flex-direction: column;
       position: relative;
@@ -462,7 +462,7 @@
       .task-card {
         min-height: 280px;
         max-height: 360px;
-        padding: 16px;
+        padding: 18px;
         border-radius: 18px;
       }
     }
@@ -486,10 +486,10 @@
       flex: 1;
       overflow-y: auto;
       padding-right: 4px;
-      margin-top: 8px;
+      margin-top: 10px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
     }
     
     /* Thin scrollbar */
@@ -509,13 +509,13 @@
     .task-card-header {
       display: flex;
       align-items: flex-start;
-      gap: 8px;
+      gap: 10px;
       flex-shrink: 0;
     }
     
     .task-check {
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
       appearance: none;
       background: var(--input-bg);
       border: 2px solid var(--accent);
@@ -532,7 +532,7 @@
       content: "\f00c";
       font-family: "Font Awesome 6 Free";
       font-weight: 900;
-      font-size: 9px;
+      font-size: 10px;
       color: white;
       position: absolute;
       top: 50%;
@@ -550,24 +550,24 @@
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 4px;
-      margin-bottom: 6px;
+      gap: 6px;
+      margin-bottom: 8px;
     }
     
     .task-title {
       font-weight: 700;
-      font-size: 0.85rem;
+      font-size: 0.95rem;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
       flex-wrap: wrap;
       word-break: break-word;
-      line-height: 1.3;
+      line-height: 1.35;
     }
     
     @media (min-width: 768px) {
       .task-title {
-        font-size: 0.95rem;
+        font-size: 1rem;
       }
     }
     
@@ -578,7 +578,7 @@
     
     .task-actions-card {
       display: flex;
-      gap: 2px;
+      gap: 4px;
       flex-shrink: 0;
     }
     
@@ -586,8 +586,8 @@
       background: transparent;
       border: none;
       color: var(--text-muted);
-      font-size: 0.6rem;
-      padding: 4px 5px;
+      font-size: 0.7rem;
+      padding: 5px 7px;
       border-radius: 20px;
       cursor: pointer;
       transition: all 0.2s;
@@ -603,15 +603,15 @@
     .task-meta-card {
       display: flex;
       flex-wrap: wrap;
-      gap: 5px;
-      margin: 5px 0;
+      gap: 6px;
+      margin: 8px 0;
       flex-shrink: 0;
     }
     
     .priority-badge {
-      padding: 2px 6px;
+      padding: 3px 8px;
       border-radius: 30px;
-      font-size: 0.55rem;
+      font-size: 0.65rem;
       font-weight: 600;
     }
     .priority-high { background: #f9737320; color: #f97373; }
@@ -619,32 +619,32 @@
     .priority-low { background: #6bdc9c20; color: #6bdc9c; }
     .cat-badge {
       background: var(--badge-bg);
-      padding: 2px 6px;
+      padding: 3px 8px;
       border-radius: 20px;
-      font-size: 0.55rem;
+      font-size: 0.65rem;
     }
     .due-date {
-      font-size: 0.55rem;
+      font-size: 0.65rem;
       display: flex;
       align-items: center;
-      gap: 3px;
+      gap: 4px;
     }
     
-    /* Description styling */
+    /* Description styling - Larger text */
     .task-desc-card {
-      font-size: 0.7rem;
+      font-size: 0.8rem;
       color: var(--text-secondary);
       background: var(--input-bg);
-      padding: 6px 8px;
-      border-radius: 10px;
+      padding: 8px 10px;
+      border-radius: 12px;
       word-break: break-word;
-      line-height: 1.35;
+      line-height: 1.4;
     }
     
     @media (min-width: 768px) {
       .task-desc-card {
-        font-size: 0.75rem;
-        padding: 8px 10px;
+        font-size: 0.8rem;
+        padding: 8px 12px;
       }
     }
     
@@ -652,15 +652,15 @@
     .task-images-card {
       display: flex;
       flex-wrap: wrap;
-      gap: 5px;
-      margin-top: 4px;
+      gap: 6px;
+      margin-top: 6px;
       flex-shrink: 0;
     }
     
     .task-image-card {
-      width: 45px;
-      height: 45px;
-      border-radius: 8px;
+      width: 55px;
+      height: 55px;
+      border-radius: 10px;
       overflow: hidden;
       cursor: pointer;
       border: 1px solid var(--card-border);
@@ -670,8 +670,8 @@
     
     @media (min-width: 768px) {
       .task-image-card {
-        width: 55px;
-        height: 55px;
+        width: 60px;
+        height: 60px;
       }
     }
     
@@ -690,7 +690,7 @@
       justify-content: center;
       background: var(--accent);
       color: white;
-      font-size: 0.6rem;
+      font-size: 0.7rem;
       font-weight: bold;
     }
     
@@ -719,7 +719,7 @@
       padding: 40px 20px;
       color: var(--text-muted);
       grid-column: 1 / -1;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
     }
     
     .form-row {
@@ -905,7 +905,7 @@
               <div class="task-title-row">
                 <div class="task-title">
                   <span class="${task.completed ? 'completed-title' : ''}">${escapeHtml(task.title)}</span>
-                  ${task.pinned ? '<i class="fas fa-thumbtack" style="color:#facc15; font-size:0.6rem;"></i>' : ''}
+                  ${task.pinned ? '<i class="fas fa-thumbtack" style="color:#facc15; font-size:0.7rem;"></i>' : ''}
                 </div>
                 <div class="task-actions-card">
                   <button class="action-icon pin-icon ${task.pinned ? 'active' : ''}" data-id="${task.id}" data-action="pin"><i class="fas fa-thumbtack"></i></button>
@@ -955,7 +955,7 @@
     window.showAllImages = showAllImages;
     window.exportData = function() { const dataStr = JSON.stringify({ version:"1.0", exportDate:new Date().toISOString(), user:currentUser.email, tasks }, null, 2); const blob = new Blob([dataStr], {type:"application/json"}); const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `taskflow_backup_${currentUser.email}_${Date.now()}.json`; a.click(); URL.revokeObjectURL(a.href); syncStatusText.innerHTML = '✓ Export complete'; setTimeout(() => syncStatusText.innerHTML = '☁️ Cloud', 2000); backupMenu.classList.remove("show"); };
     window.importData = function() { const input = document.createElement("input"); input.type = "file"; input.accept = "application/json"; input.onchange = (e) => { const file = e.target.files[0]; const reader = new FileReader(); reader.onload = (ev) => { try { const imported = JSON.parse(ev.target.result); if(imported.tasks && Array.isArray(imported.tasks)) { tasks = imported.tasks.map(t => ({ ...t, id: Date.now() + Math.random(), images: t.images || [], completed: t.completed || false, pinned: t.pinned || false })); saveUserTasks(); renderTasks(); updateProgressBar(); syncStatusText.innerHTML = '✓ Import successful'; setTimeout(() => syncStatusText.innerHTML = '☁️ Cloud', 2000); } else alert("Invalid backup file format"); } catch(err) { alert("Error importing file"); } }; reader.readAsText(file); }; input.click(); backupMenu.classList.remove("show"); };
-    window.resetData = function() { if(confirm(" WARNING: This will delete ALL your tasks. This action cannot be undone. Continue?")) { tasks = []; saveUserTasks(); renderTasks(); updateProgressBar(); syncStatusText.innerHTML = '✓ All cleared'; setTimeout(() => syncStatusText.innerHTML = '☁️ Cloud', 2000); } backupMenu.classList.remove("show"); };
+    window.resetData = function() { if(confirm("⚠️ WARNING: This will delete ALL your tasks. This action cannot be undone. Continue?")) { tasks = []; saveUserTasks(); renderTasks(); updateProgressBar(); syncStatusText.innerHTML = '✓ All cleared'; setTimeout(() => syncStatusText.innerHTML = '☁️ Cloud', 2000); } backupMenu.classList.remove("show"); };
     function initFilters() { document.querySelectorAll("#statusFilters .filter-chip").forEach(btn => { btn.addEventListener("click", () => { document.querySelectorAll("#statusFilters .filter-chip").forEach(b => b.classList.remove("active")); btn.classList.add("active"); currentStatusFilter = btn.dataset.filter; renderTasks(); }); }); document.querySelectorAll("#categoryFilters .filter-chip").forEach(btn => { btn.addEventListener("click", () => { document.querySelectorAll("#categoryFilters .filter-chip").forEach(b => b.classList.remove("active")); btn.classList.add("active"); currentCategoryFilter = btn.dataset.cat; renderTasks(); }); }); searchInput.addEventListener("input", (e) => { searchQuery = e.target.value; renderTasks(); }); sortSelect.addEventListener("change", (e) => { sortMode = e.target.value; renderTasks(); }); clearCompletedBtn.addEventListener("click", () => { tasks = tasks.filter(t => !t.completed); saveUserTasks(); renderTasks(); updateProgressBar(); }); clearAllBtn.addEventListener("click", () => { if(confirm("Delete ALL tasks permanently?")) { tasks = []; saveUserTasks(); renderTasks(); updateProgressBar(); } }); }
     const usersKey = "taskflow_pro_users";
     function getUsers() { const users = localStorage.getItem(usersKey); return users ? JSON.parse(users) : []; }
