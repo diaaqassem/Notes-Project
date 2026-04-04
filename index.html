@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
@@ -47,7 +47,7 @@
       color: var(--text-primary);
     }
 
-    /* Custom Scrollbar for tasks grid */
+    /* Custom Scrollbar */
     .tasks-grid::-webkit-scrollbar {
       width: 4px;
     }
@@ -58,9 +58,6 @@
     .tasks-grid::-webkit-scrollbar-thumb {
       background: #1a1a1a;
       border-radius: 10px;
-    }
-    .tasks-grid::-webkit-scrollbar-thumb:hover {
-      background: #2a2a2a;
     }
 
     /* Modal Styles */
@@ -423,39 +420,39 @@
       font-size: 0.75rem;
     }
     
-    /* Grid Layout for Tasks - Mobile First */
+    /* Grid Layout - Mobile: 2 columns for better visibility */
     .tasks-grid {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-      max-height: 60vh;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      max-height: 65vh;
       overflow-y: auto;
       padding: 2px;
     }
     
     @media (min-width: 600px) {
       .tasks-grid {
-        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-        gap: 18px;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 16px;
       }
     }
     
     @media (min-width: 1024px) {
       .tasks-grid {
-        grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
         gap: 20px;
       }
     }
     
-    /* Task Card - Optimized for Mobile */
+    /* Task Card - Clear and visible on mobile */
     .task-card {
       background: var(--bg-secondary);
-      border-radius: 18px;
-      padding: 14px;
+      border-radius: 16px;
+      padding: 12px;
       border: 1px solid var(--card-border);
       transition: all 0.2s;
-      min-height: 260px;
-      max-height: 320px;
+      min-height: 240px;
+      max-height: 300px;
       display: flex;
       flex-direction: column;
       position: relative;
@@ -465,7 +462,8 @@
       .task-card {
         min-height: 280px;
         max-height: 360px;
-        padding: 18px;
+        padding: 16px;
+        border-radius: 18px;
       }
     }
     
@@ -476,7 +474,7 @@
     }
     
     .task-card.pinned {
-      border-right: 3px solid var(--pin-color);
+      border-left: 3px solid var(--pin-color);
     }
     
     .task-card.completed-task {
@@ -487,23 +485,21 @@
     .task-card-scroll {
       flex: 1;
       overflow-y: auto;
-      padding-left: 4px;
+      padding-right: 4px;
       margin-top: 8px;
       display: flex;
       flex-direction: column;
       gap: 8px;
     }
     
-    /* Thin scrollbar for internal content */
+    /* Thin scrollbar */
     .task-card-scroll::-webkit-scrollbar {
       width: 3px;
     }
-    
     .task-card-scroll::-webkit-scrollbar-track {
       background: #000000;
       border-radius: 3px;
     }
-    
     .task-card-scroll::-webkit-scrollbar-thumb {
       background: #1a1a1a;
       border-radius: 3px;
@@ -513,13 +509,13 @@
     .task-card-header {
       display: flex;
       align-items: flex-start;
-      gap: 10px;
+      gap: 8px;
       flex-shrink: 0;
     }
     
     .task-check {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
       appearance: none;
       background: var(--input-bg);
       border: 2px solid var(--accent);
@@ -536,7 +532,7 @@
       content: "\f00c";
       font-family: "Font Awesome 6 Free";
       font-weight: 900;
-      font-size: 10px;
+      font-size: 9px;
       color: white;
       position: absolute;
       top: 50%;
@@ -554,23 +550,24 @@
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 6px;
+      gap: 4px;
       margin-bottom: 6px;
     }
     
     .task-title {
       font-weight: 700;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
       flex-wrap: wrap;
       word-break: break-word;
+      line-height: 1.3;
     }
     
     @media (min-width: 768px) {
       .task-title {
-        font-size: 1rem;
+        font-size: 0.95rem;
       }
     }
     
@@ -589,8 +586,8 @@
       background: transparent;
       border: none;
       color: var(--text-muted);
-      font-size: 0.65rem;
-      padding: 5px 6px;
+      font-size: 0.6rem;
+      padding: 4px 5px;
       border-radius: 20px;
       cursor: pointer;
       transition: all 0.2s;
@@ -606,15 +603,15 @@
     .task-meta-card {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
-      margin: 6px 0;
+      gap: 5px;
+      margin: 5px 0;
       flex-shrink: 0;
     }
     
     .priority-badge {
-      padding: 3px 8px;
+      padding: 2px 6px;
       border-radius: 30px;
-      font-size: 0.6rem;
+      font-size: 0.55rem;
       font-weight: 600;
     }
     .priority-high { background: #f9737320; color: #f97373; }
@@ -622,12 +619,12 @@
     .priority-low { background: #6bdc9c20; color: #6bdc9c; }
     .cat-badge {
       background: var(--badge-bg);
-      padding: 3px 8px;
+      padding: 2px 6px;
       border-radius: 20px;
-      font-size: 0.6rem;
+      font-size: 0.55rem;
     }
     .due-date {
-      font-size: 0.6rem;
+      font-size: 0.55rem;
       display: flex;
       align-items: center;
       gap: 3px;
@@ -635,19 +632,19 @@
     
     /* Description styling */
     .task-desc-card {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: var(--text-secondary);
       background: var(--input-bg);
-      padding: 8px 10px;
-      border-radius: 12px;
+      padding: 6px 8px;
+      border-radius: 10px;
       word-break: break-word;
-      line-height: 1.4;
+      line-height: 1.35;
     }
     
     @media (min-width: 768px) {
       .task-desc-card {
-        font-size: 0.8rem;
-        padding: 8px 12px;
+        font-size: 0.75rem;
+        padding: 8px 10px;
       }
     }
     
@@ -655,15 +652,15 @@
     .task-images-card {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
+      gap: 5px;
       margin-top: 4px;
       flex-shrink: 0;
     }
     
     .task-image-card {
-      width: 50px;
-      height: 50px;
-      border-radius: 10px;
+      width: 45px;
+      height: 45px;
+      border-radius: 8px;
       overflow: hidden;
       cursor: pointer;
       border: 1px solid var(--card-border);
@@ -673,8 +670,8 @@
     
     @media (min-width: 768px) {
       .task-image-card {
-        width: 60px;
-        height: 60px;
+        width: 55px;
+        height: 55px;
       }
     }
     
@@ -693,7 +690,7 @@
       justify-content: center;
       background: var(--accent);
       color: white;
-      font-size: 0.65rem;
+      font-size: 0.6rem;
       font-weight: bold;
     }
     
@@ -722,7 +719,7 @@
       padding: 40px 20px;
       color: var(--text-muted);
       grid-column: 1 / -1;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
     }
     
     .form-row {
@@ -735,7 +732,7 @@
       min-width: 100px;
     }
     
-    /* Improved touch targets for mobile */
+    /* Touch-friendly buttons */
     button, .filter-chip, .backup-option, .action-icon {
       touch-action: manipulation;
     }
@@ -752,19 +749,19 @@
 
   <div id="editModal" class="modal-overlay">
     <div class="edit-modal">
-      <h3><i class="fas fa-edit"></i> تعديل المهمة</h3>
-      <p class="modal-subtitle">تحديث تفاصيل المهمة والصور</p>
+      <h3><i class="fas fa-edit"></i> Edit Task</h3>
+      <p class="modal-subtitle">Update task details and images</p>
       <input type="text" id="editTaskId" hidden>
-      <input type="text" id="editTitle" placeholder="عنوان المهمة">
-      <textarea id="editDescription" placeholder="الوصف"></textarea>
-      <select id="editCategory"><option value="Study">دراسة</option><option value="Work">عمل</option><option value="Personal">شخصي</option></select>
-      <select id="editPriority"><option value="High">أولوية عالية</option><option value="Medium">أولوية متوسطة</option><option value="Low">أولوية منخفضة</option></select>
+      <input type="text" id="editTitle" placeholder="Task title">
+      <textarea id="editDescription" placeholder="Description"></textarea>
+      <select id="editCategory"><option value="Study">Study</option><option value="Work">Work</option><option value="Personal">Personal</option></select>
+      <select id="editPriority"><option value="High">High Priority</option><option value="Medium">Medium Priority</option><option value="Low">Low Priority</option></select>
       <input type="date" id="editDueDate">
       <div class="edit-image-section">
-        <div class="edit-image-upload-area" id="editImageUploadArea"><i class="fas fa-plus"></i> إضافة صور<input type="file" id="editImageInput" multiple accept="image/*" style="display: none;"></div>
+        <div class="edit-image-upload-area" id="editImageUploadArea"><i class="fas fa-plus"></i> Add images<input type="file" id="editImageInput" multiple accept="image/*" style="display: none;"></div>
         <div id="editImageGrid" class="edit-image-grid"></div>
       </div>
-      <div class="modal-actions"><button class="cancel-btn" onclick="closeEditModal()">إلغاء</button><button class="save-btn" onclick="saveEditTask()">حفظ</button></div>
+      <div class="modal-actions"><button class="cancel-btn" onclick="closeEditModal()">Cancel</button><button class="save-btn" onclick="saveEditTask()">Save</button></div>
     </div>
   </div>
 
@@ -774,7 +771,7 @@
     <div class="header">
       <div class="title-section">
         <h1><i class="fas fa-cloud"></i> TaskFlow Pro</h1>
-        <p>مهام متعددة الصور • نسخ احتياطي</p>
+        <p>Multi-image notes • Backup & Restore</p>
       </div>
       <div class="user-info">
         <i class="fas fa-user-circle"></i>
@@ -786,72 +783,72 @@
     <div class="dashboard">
       <div class="sidebar">
         <div class="filter-group">
-          <h3><i class="fas fa-filter"></i> الحالة</h3>
+          <h3><i class="fas fa-filter"></i> Status</h3>
           <div class="filter-buttons" id="statusFilters">
-            <button data-filter="all" class="filter-chip active">الكل</button>
-            <button data-filter="pending" class="filter-chip">قيد التنفيذ</button>
-            <button data-filter="completed" class="filter-chip">منتهية</button>
+            <button data-filter="all" class="filter-chip active">All</button>
+            <button data-filter="pending" class="filter-chip">Pending</button>
+            <button data-filter="completed" class="filter-chip">Completed</button>
           </div>
         </div>
         <div class="filter-group">
-          <h3><i class="fas fa-tags"></i> التصنيفات</h3>
+          <h3><i class="fas fa-tags"></i> Categories</h3>
           <div class="filter-buttons" id="categoryFilters">
-            <button data-cat="All" class="filter-chip active">الكل</button>
-            <button data-cat="Study" class="filter-chip">دراسة</button>
-            <button data-cat="Work" class="filter-chip">عمل</button>
-            <button data-cat="Personal" class="filter-chip">شخصي</button>
+            <button data-cat="All" class="filter-chip active">All</button>
+            <button data-cat="Study" class="filter-chip">Study</button>
+            <button data-cat="Work" class="filter-chip">Work</button>
+            <button data-cat="Personal" class="filter-chip">Personal</button>
           </div>
         </div>
         <div class="progress-card">
-          <h3><i class="fas fa-chart-simple"></i> التقدم</h3>
+          <h3><i class="fas fa-chart-simple"></i> Progress</h3>
           <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-          <span id="progressPercent">0%</span> مكتمل
+          <span id="progressPercent">0%</span> completed
         </div>
-        <button id="clearCompletedBtn" class="filter-chip clear-all-btn"><i class="fas fa-trash-alt"></i> حذف المكتملة</button>
-        <button id="clearAllBtn" class="filter-chip clear-all-btn" style="margin-top:8px;"><i class="fas fa-dumpster"></i> حذف الكل</button>
-        <button id="backupBtn" class="filter-chip backup-btn"><i class="fas fa-database"></i> نسخ احتياطي</button>
+        <button id="clearCompletedBtn" class="filter-chip clear-all-btn"><i class="fas fa-trash-alt"></i> Clear Completed</button>
+        <button id="clearAllBtn" class="filter-chip clear-all-btn" style="margin-top:8px;"><i class="fas fa-dumpster"></i> Clear All</button>
+        <button id="backupBtn" class="filter-chip backup-btn"><i class="fas fa-database"></i> Backup</button>
         <div id="backupMenu" class="backup-menu">
-          <button class="backup-option" onclick="exportData()"><i class="fas fa-download"></i> تصدير JSON</button>
-          <button class="backup-option" onclick="importData()"><i class="fas fa-upload"></i> استيراد</button>
-          <button class="backup-option" onclick="resetData()"><i class="fas fa-trash-alt"></i> إعادة تعيين</button>
+          <button class="backup-option" onclick="exportData()"><i class="fas fa-download"></i> Export JSON</button>
+          <button class="backup-option" onclick="importData()"><i class="fas fa-upload"></i> Import Data</button>
+          <button class="backup-option" onclick="resetData()"><i class="fas fa-trash-alt"></i> Reset All</button>
         </div>
         <div class="sync-status" style="margin-top: 12px;">
-          <i class="fas fa-check-circle"></i> <span id="syncStatusText">متزامن</span>
+          <i class="fas fa-check-circle"></i> <span id="syncStatusText">Synced</span>
         </div>
       </div>
 
       <div class="task-panel">
         <div class="add-task-form">
-          <input type="text" id="taskTitle" placeholder="عنوان المهمة">
-          <textarea id="taskDesc" rows="2" placeholder="الوصف"></textarea>
+          <input type="text" id="taskTitle" placeholder="Task title">
+          <textarea id="taskDesc" rows="2" placeholder="Description"></textarea>
           <div class="image-upload-area" id="imageUploadArea">
-            <i class="fas fa-cloud-upload-alt"></i> إضافة صور<br>
-            <small>PNG, JPG, GIF (حد أقصى 5MB)</small>
+            <i class="fas fa-cloud-upload-alt"></i> Click to add images (multiple)<br>
+            <small>PNG, JPG, GIF up to 5MB</small>
             <input type="file" id="imageInput" multiple accept="image/*" style="display: none;">
           </div>
           <div id="imagePreviewContainer" class="image-preview-grid"></div>
           <div class="form-row">
             <select id="taskCategory">
-              <option value="Study">دراسة</option>
-              <option value="Work">عمل</option>
-              <option value="Personal">شخصي</option>
+              <option value="Study">Study</option>
+              <option value="Work">Work</option>
+              <option value="Personal">Personal</option>
             </select>
             <select id="taskPriority">
-              <option value="High">عالية</option>
-              <option value="Medium">متوسطة</option>
-              <option value="Low">منخفضة</option>
+              <option value="High">High Priority</option>
+              <option value="Medium">Medium Priority</option>
+              <option value="Low">Low Priority</option>
             </select>
             <input type="date" id="taskDueDate">
           </div>
-          <button id="addTaskBtn" class="btn-add"><i class="fas fa-plus"></i> إضافة مهمة</button>
+          <button id="addTaskBtn" class="btn-add"><i class="fas fa-plus"></i> Add Task</button>
         </div>
 
         <div class="search-sort">
-          <div class="search-box"><i class="fas fa-search"></i><input type="text" id="searchInput" placeholder="بحث..."></div>
+          <div class="search-box"><i class="fas fa-search"></i><input type="text" id="searchInput" placeholder="Search..."></div>
           <select id="sortSelect" class="sort-select">
-            <option value="date_asc">التاريخ (الأقرب)</option>
-            <option value="date_desc">التاريخ (الأبعد)</option>
-            <option value="priority">الأولوية</option>
+            <option value="date_asc">Due Date (earliest)</option>
+            <option value="date_desc">Due Date (latest)</option>
+            <option value="priority">Priority (High to Low)</option>
           </select>
         </div>
 
@@ -861,23 +858,22 @@
   </div>
 
   <script>
-    // (نفس الكود السابق مع الحفاظ على جميع الوظائف)
     let currentUser = null, tasks = [], currentStatusFilter = "all", currentCategoryFilter = "All", searchQuery = "", sortMode = "date_asc", currentEditTaskId = null, currentImageDataUrls = [], editImageDataUrls = [];
     const authContainer = document.getElementById("authContainer"), appContainer = document.getElementById("appContainer"), tasksContainer = document.getElementById("tasksContainer"), addBtn = document.getElementById("addTaskBtn"), searchInput = document.getElementById("searchInput"), sortSelect = document.getElementById("sortSelect"), clearCompletedBtn = document.getElementById("clearCompletedBtn"), clearAllBtn = document.getElementById("clearAllBtn"), progressFill = document.getElementById("progressFill"), progressPercent = document.getElementById("progressPercent"), logoutBtn = document.getElementById("logoutBtn"), userEmailDisplay = document.getElementById("userEmailDisplay"), syncStatusText = document.getElementById("syncStatusText"), editModal = document.getElementById("editModal"), backupBtn = document.getElementById("backupBtn"), backupMenu = document.getElementById("backupMenu"), imageInput = document.getElementById("imageInput"), imageUploadArea = document.getElementById("imageUploadArea"), imagePreviewContainer = document.getElementById("imagePreviewContainer"), editImageInput = document.getElementById("editImageInput"), editImageUploadArea = document.getElementById("editImageUploadArea"), editImageGrid = document.getElementById("editImageGrid");
     
     backupBtn.addEventListener("click", (e) => { e.stopPropagation(); backupMenu.classList.toggle("show"); });
     document.addEventListener("click", (e) => { if (!backupBtn.contains(e.target) && !backupMenu.contains(e.target)) backupMenu.classList.remove("show"); });
     imageUploadArea.addEventListener("click", () => imageInput.click());
-    imageInput.addEventListener("change", (e) => { Array.from(e.target.files).forEach(file => { if(file.size <= 5*1024*1024) { const reader = new FileReader(); reader.onload = (ev) => { currentImageDataUrls.push(ev.target.result); updateImagePreview(); }; reader.readAsDataURL(file); } else alert("الصورة كبيرة جداً. الحد الأقصى 5MB"); }); imageInput.value = ""; });
+    imageInput.addEventListener("change", (e) => { Array.from(e.target.files).forEach(file => { if(file.size <= 5*1024*1024) { const reader = new FileReader(); reader.onload = (ev) => { currentImageDataUrls.push(ev.target.result); updateImagePreview(); }; reader.readAsDataURL(file); } else alert("Image too large. Max 5MB"); }); imageInput.value = ""; });
     function updateImagePreview() { imagePreviewContainer.innerHTML = currentImageDataUrls.map((url, idx) => `<div class="image-preview-item"><img src="${url}"><button class="remove-image-btn" onclick="removeImage(${idx})"><i class="fas fa-times"></i></button></div>`).join(""); }
     window.removeImage = function(idx) { currentImageDataUrls.splice(idx,1); updateImagePreview(); };
     function clearImagePreview() { currentImageDataUrls = []; updateImagePreview(); }
     editImageUploadArea.addEventListener("click", () => editImageInput.click());
-    editImageInput.addEventListener("change", (e) => { Array.from(e.target.files).forEach(file => { if(file.size <= 5*1024*1024) { const reader = new FileReader(); reader.onload = (ev) => { editImageDataUrls.push(ev.target.result); updateEditImagePreview(); }; reader.readAsDataURL(file); } else alert("الصورة كبيرة جداً"); }); editImageInput.value = ""; });
+    editImageInput.addEventListener("change", (e) => { Array.from(e.target.files).forEach(file => { if(file.size <= 5*1024*1024) { const reader = new FileReader(); reader.onload = (ev) => { editImageDataUrls.push(ev.target.result); updateEditImagePreview(); }; reader.readAsDataURL(file); } else alert("Image too large. Max 5MB"); }); editImageInput.value = ""; });
     function updateEditImagePreview() { editImageGrid.innerHTML = editImageDataUrls.map((url, idx) => `<div class="edit-image-item"><img src="${url}"><button class="edit-remove-img" onclick="removeEditImage(${idx})"><i class="fas fa-times"></i></button></div>`).join(""); }
     window.removeEditImage = function(idx) { editImageDataUrls.splice(idx,1); updateEditImagePreview(); };
     function getStorageKeyForUser(email) { return `taskflow_pro_${email.replace(/[^a-zA-Z0-9]/g, '_')}`; }
-    function saveUserTasks() { if(currentUser) { localStorage.setItem(getStorageKeyForUser(currentUser.email), JSON.stringify(tasks)); syncStatusText.innerHTML = '✓ متزامن'; setTimeout(() => syncStatusText.innerHTML = '☁️ سحابي', 2000); } }
+    function saveUserTasks() { if(currentUser) { localStorage.setItem(getStorageKeyForUser(currentUser.email), JSON.stringify(tasks)); syncStatusText.innerHTML = '✓ Synced'; setTimeout(() => syncStatusText.innerHTML = '☁️ Cloud', 2000); } }
     function loadUserTasks() { if(currentUser) { const stored = localStorage.getItem(getStorageKeyForUser(currentUser.email)); if(stored) { tasks = JSON.parse(stored); tasks = tasks.map(t => ({ ...t, pinned: t.pinned || false, description: t.description || "", images: t.images || [], completed: t.completed || false })); } else { tasks = []; saveUserTasks(); } renderTasks(); updateProgressBar(); } }
     function updateProgressBar() { const total = tasks.length, completedCount = tasks.filter(t => t.completed === true).length, percent = total === 0 ? 0 : Math.round((completedCount / total) * 100); progressFill.style.width = `${percent}%`; progressPercent.innerText = `${percent}%`; }
     function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, (m) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); }
@@ -889,7 +885,7 @@
       if(task && task.images && task.images.length > 0) {
         const modal = document.createElement('div');
         modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.95);z-index:2001;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:20px;overflow-y:auto;';
-        modal.innerHTML = `<div style="background:#000;border:1px solid var(--accent);border-radius:20px;padding:20px;max-width:500px;max-height:80vh;overflow-y:auto;"><h3 style="color:var(--accent);margin-bottom:15px;">📸 جميع الصور (${task.images.length})</h3><div style="display:flex;flex-direction:column;gap:10px;">${task.images.map(img => `<img src="${img}" style="width:100%;border-radius:12px;cursor:pointer;" onclick="openLightbox('${img}')">`).join('')}</div><button onclick="this.parentElement.parentElement.remove()" style="margin-top:15px;background:var(--accent);border:none;padding:10px;border-radius:10px;color:white;cursor:pointer;">إغلاق</button></div>`;
+        modal.innerHTML = `<div style="background:#000;border:1px solid var(--accent);border-radius:20px;padding:20px;max-width:500px;max-height:80vh;overflow-y:auto;"><h3 style="color:var(--accent);margin-bottom:15px;">📸 All Images (${task.images.length})</h3><div style="display:flex;flex-direction:column;gap:10px;">${task.images.map(img => `<img src="${img}" style="width:100%;border-radius:12px;cursor:pointer;" onclick="openLightbox('${img}')">`).join('')}</div><button onclick="this.parentElement.parentElement.remove()" style="margin-top:15px;background:var(--accent);border:none;padding:10px;border-radius:10px;color:white;cursor:pointer;">Close</button></div>`;
         document.body.appendChild(modal);
         modal.onclick = (e) => { if(e.target === modal) modal.remove(); };
       }
@@ -898,7 +894,7 @@
     function renderTasks() { 
       const filtered = getFilteredSortedTasks(); 
       if(filtered.length === 0) { 
-        tasksContainer.innerHTML = `<div class="empty-msg"><i class="fas fa-inbox"></i> لا توجد مهام. أضف مهمتك الأولى!</div>`; 
+        tasksContainer.innerHTML = `<div class="empty-msg"><i class="fas fa-inbox"></i> No tasks found. Add your first task!</div>`; 
         return; 
       } 
       tasksContainer.innerHTML = filtered.map(task => `
@@ -909,7 +905,7 @@
               <div class="task-title-row">
                 <div class="task-title">
                   <span class="${task.completed ? 'completed-title' : ''}">${escapeHtml(task.title)}</span>
-                  ${task.pinned ? '<i class="fas fa-thumbtack" style="color:#facc15; font-size:0.65rem;"></i>' : ''}
+                  ${task.pinned ? '<i class="fas fa-thumbtack" style="color:#facc15; font-size:0.6rem;"></i>' : ''}
                 </div>
                 <div class="task-actions-card">
                   <button class="action-icon pin-icon ${task.pinned ? 'active' : ''}" data-id="${task.id}" data-action="pin"><i class="fas fa-thumbtack"></i></button>
@@ -918,9 +914,9 @@
                 </div>
               </div>
               <div class="task-meta-card">
-                <span class="priority-badge priority-${task.priority.toLowerCase()}">${task.priority === 'High' ? '🔴' : task.priority === 'Medium' ? '🟡' : '🟢'} ${task.priority === 'High' ? 'عالية' : task.priority === 'Medium' ? 'متوسطة' : 'منخفضة'}</span>
-                <span class="cat-badge"><i class="fas fa-folder"></i> ${task.category === 'Study' ? 'دراسة' : task.category === 'Work' ? 'عمل' : 'شخصي'}</span>
-                <span class="due-date"><i class="far fa-calendar-alt"></i> ${task.dueDate || 'بدون تاريخ'}</span>
+                <span class="priority-badge priority-${task.priority.toLowerCase()}">${task.priority === 'High' ? '🔴' : task.priority === 'Medium' ? '🟡' : '🟢'} ${task.priority}</span>
+                <span class="cat-badge"><i class="fas fa-folder"></i> ${task.category}</span>
+                <span class="due-date"><i class="far fa-calendar-alt"></i> ${task.dueDate || 'No date'}</span>
               </div>
             </div>
           </div>
@@ -945,22 +941,22 @@
       document.querySelectorAll('[data-action="edit"]').forEach(btn => btn.addEventListener('click', handleEditClick)); 
     }
     function handleCheckboxChange(e) { toggleTaskCompletion(parseInt(e.currentTarget.dataset.id), e.currentTarget.checked); }
-    function handleDeleteClick(e) { const id = parseInt(e.currentTarget.dataset.id); if(confirm("حذف هذه المهمة؟")) { tasks = tasks.filter(t => t.id !== id); saveUserTasks(); renderTasks(); updateProgressBar(); } }
+    function handleDeleteClick(e) { const id = parseInt(e.currentTarget.dataset.id); if(confirm("Delete this task?")) { tasks = tasks.filter(t => t.id !== id); saveUserTasks(); renderTasks(); updateProgressBar(); } }
     function handlePinClick(e) { const id = parseInt(e.currentTarget.dataset.id); const task = tasks.find(t => t.id === id); if(task) { task.pinned = !task.pinned; saveUserTasks(); renderTasks(); } }
     function handleEditClick(e) { openEditModal(parseInt(e.currentTarget.dataset.id)); }
-    function addNewTask() { const title = document.getElementById("taskTitle").value.trim(); if(!title) return alert("أدخل عنوان المهمة"); tasks.push({ id: Date.now(), title, description: document.getElementById("taskDesc").value.trim(), category: document.getElementById("taskCategory").value, priority: document.getElementById("taskPriority").value, dueDate: document.getElementById("taskDueDate").value, completed: false, pinned: false, images: [...currentImageDataUrls], createdAt: Date.now() }); document.getElementById("taskTitle").value = ""; document.getElementById("taskDesc").value = ""; document.getElementById("taskDueDate").value = ""; clearImagePreview(); saveUserTasks(); renderTasks(); updateProgressBar(); }
+    function addNewTask() { const title = document.getElementById("taskTitle").value.trim(); if(!title) return alert("Enter task title"); tasks.push({ id: Date.now(), title, description: document.getElementById("taskDesc").value.trim(), category: document.getElementById("taskCategory").value, priority: document.getElementById("taskPriority").value, dueDate: document.getElementById("taskDueDate").value, completed: false, pinned: false, images: [...currentImageDataUrls], createdAt: Date.now() }); document.getElementById("taskTitle").value = ""; document.getElementById("taskDesc").value = ""; document.getElementById("taskDueDate").value = ""; clearImagePreview(); saveUserTasks(); renderTasks(); updateProgressBar(); }
     function openEditModal(taskId) { const task = tasks.find(t => t.id === taskId); if(!task) return; currentEditTaskId = taskId; document.getElementById("editTaskId").value = taskId; document.getElementById("editTitle").value = task.title; document.getElementById("editDescription").value = task.description || ""; document.getElementById("editCategory").value = task.category; document.getElementById("editPriority").value = task.priority; document.getElementById("editDueDate").value = task.dueDate || ""; editImageDataUrls = [...(task.images || [])]; updateEditImagePreview(); editModal.classList.add("active"); }
     function closeEditModal() { editModal.classList.remove("active"); currentEditTaskId = null; editImageDataUrls = []; }
-    function saveEditTask() { const task = tasks.find(t => t.id === currentEditTaskId); if(task) { task.title = document.getElementById("editTitle").value.trim(); if(!task.title) return alert("عنوان المهمة لا يمكن أن يكون فارغاً"); task.description = document.getElementById("editDescription").value; task.category = document.getElementById("editCategory").value; task.priority = document.getElementById("editPriority").value; task.dueDate = document.getElementById("editDueDate").value; task.images = [...editImageDataUrls]; saveUserTasks(); renderTasks(); updateProgressBar(); closeEditModal(); } }
+    function saveEditTask() { const task = tasks.find(t => t.id === currentEditTaskId); if(task) { task.title = document.getElementById("editTitle").value.trim(); if(!task.title) return alert("Task title cannot be empty"); task.description = document.getElementById("editDescription").value; task.category = document.getElementById("editCategory").value; task.priority = document.getElementById("editPriority").value; task.dueDate = document.getElementById("editDueDate").value; task.images = [...editImageDataUrls]; saveUserTasks(); renderTasks(); updateProgressBar(); closeEditModal(); } }
     editModal.addEventListener("click", (e) => { if(e.target === editModal) closeEditModal(); });
     document.addEventListener("keydown", (e) => { if(e.key === "Escape" && editModal.classList.contains("active")) closeEditModal(); });
     window.openLightbox = function(imgSrc) { document.getElementById("lightboxImg").src = imgSrc; document.getElementById("lightbox").classList.add("active"); };
     window.closeLightbox = function() { document.getElementById("lightbox").classList.remove("active"); };
     window.showAllImages = showAllImages;
-    window.exportData = function() { const dataStr = JSON.stringify({ version:"1.0", exportDate:new Date().toISOString(), user:currentUser.email, tasks }, null, 2); const blob = new Blob([dataStr], {type:"application/json"}); const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `taskflow_backup_${currentUser.email}_${Date.now()}.json`; a.click(); URL.revokeObjectURL(a.href); syncStatusText.innerHTML = '✓ تم التصدير'; setTimeout(() => syncStatusText.innerHTML = '☁️ سحابي', 2000); backupMenu.classList.remove("show"); };
-    window.importData = function() { const input = document.createElement("input"); input.type = "file"; input.accept = "application/json"; input.onchange = (e) => { const file = e.target.files[0]; const reader = new FileReader(); reader.onload = (ev) => { try { const imported = JSON.parse(ev.target.result); if(imported.tasks && Array.isArray(imported.tasks)) { tasks = imported.tasks.map(t => ({ ...t, id: Date.now() + Math.random(), images: t.images || [], completed: t.completed || false, pinned: t.pinned || false })); saveUserTasks(); renderTasks(); updateProgressBar(); syncStatusText.innerHTML = '✓ تم الاستيراد'; setTimeout(() => syncStatusText.innerHTML = '☁️ سحابي', 2000); } else alert("تنسيق ملف غير صالح"); } catch(err) { alert("خطأ في قراءة الملف"); } }; reader.readAsText(file); }; input.click(); backupMenu.classList.remove("show"); };
-    window.resetData = function() { if(confirm("⚠️ تحذير: سيتم حذف جميع المهام. هذا الإجراء لا يمكن التراجع عنه. هل تريد المتابعة؟")) { tasks = []; saveUserTasks(); renderTasks(); updateProgressBar(); syncStatusText.innerHTML = '✓ تم مسح الكل'; setTimeout(() => syncStatusText.innerHTML = '☁️ سحابي', 2000); } backupMenu.classList.remove("show"); };
-    function initFilters() { document.querySelectorAll("#statusFilters .filter-chip").forEach(btn => { btn.addEventListener("click", () => { document.querySelectorAll("#statusFilters .filter-chip").forEach(b => b.classList.remove("active")); btn.classList.add("active"); currentStatusFilter = btn.dataset.filter; renderTasks(); }); }); document.querySelectorAll("#categoryFilters .filter-chip").forEach(btn => { btn.addEventListener("click", () => { document.querySelectorAll("#categoryFilters .filter-chip").forEach(b => b.classList.remove("active")); btn.classList.add("active"); currentCategoryFilter = btn.dataset.cat; renderTasks(); }); }); searchInput.addEventListener("input", (e) => { searchQuery = e.target.value; renderTasks(); }); sortSelect.addEventListener("change", (e) => { sortMode = e.target.value; renderTasks(); }); clearCompletedBtn.addEventListener("click", () => { tasks = tasks.filter(t => !t.completed); saveUserTasks(); renderTasks(); updateProgressBar(); }); clearAllBtn.addEventListener("click", () => { if(confirm("حذف جميع المهام نهائياً؟")) { tasks = []; saveUserTasks(); renderTasks(); updateProgressBar(); } }); }
+    window.exportData = function() { const dataStr = JSON.stringify({ version:"1.0", exportDate:new Date().toISOString(), user:currentUser.email, tasks }, null, 2); const blob = new Blob([dataStr], {type:"application/json"}); const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `taskflow_backup_${currentUser.email}_${Date.now()}.json`; a.click(); URL.revokeObjectURL(a.href); syncStatusText.innerHTML = '✓ Export complete'; setTimeout(() => syncStatusText.innerHTML = '☁️ Cloud', 2000); backupMenu.classList.remove("show"); };
+    window.importData = function() { const input = document.createElement("input"); input.type = "file"; input.accept = "application/json"; input.onchange = (e) => { const file = e.target.files[0]; const reader = new FileReader(); reader.onload = (ev) => { try { const imported = JSON.parse(ev.target.result); if(imported.tasks && Array.isArray(imported.tasks)) { tasks = imported.tasks.map(t => ({ ...t, id: Date.now() + Math.random(), images: t.images || [], completed: t.completed || false, pinned: t.pinned || false })); saveUserTasks(); renderTasks(); updateProgressBar(); syncStatusText.innerHTML = '✓ Import successful'; setTimeout(() => syncStatusText.innerHTML = '☁️ Cloud', 2000); } else alert("Invalid backup file format"); } catch(err) { alert("Error importing file"); } }; reader.readAsText(file); }; input.click(); backupMenu.classList.remove("show"); };
+    window.resetData = function() { if(confirm(" WARNING: This will delete ALL your tasks. This action cannot be undone. Continue?")) { tasks = []; saveUserTasks(); renderTasks(); updateProgressBar(); syncStatusText.innerHTML = '✓ All cleared'; setTimeout(() => syncStatusText.innerHTML = '☁️ Cloud', 2000); } backupMenu.classList.remove("show"); };
+    function initFilters() { document.querySelectorAll("#statusFilters .filter-chip").forEach(btn => { btn.addEventListener("click", () => { document.querySelectorAll("#statusFilters .filter-chip").forEach(b => b.classList.remove("active")); btn.classList.add("active"); currentStatusFilter = btn.dataset.filter; renderTasks(); }); }); document.querySelectorAll("#categoryFilters .filter-chip").forEach(btn => { btn.addEventListener("click", () => { document.querySelectorAll("#categoryFilters .filter-chip").forEach(b => b.classList.remove("active")); btn.classList.add("active"); currentCategoryFilter = btn.dataset.cat; renderTasks(); }); }); searchInput.addEventListener("input", (e) => { searchQuery = e.target.value; renderTasks(); }); sortSelect.addEventListener("change", (e) => { sortMode = e.target.value; renderTasks(); }); clearCompletedBtn.addEventListener("click", () => { tasks = tasks.filter(t => !t.completed); saveUserTasks(); renderTasks(); updateProgressBar(); }); clearAllBtn.addEventListener("click", () => { if(confirm("Delete ALL tasks permanently?")) { tasks = []; saveUserTasks(); renderTasks(); updateProgressBar(); } }); }
     const usersKey = "taskflow_pro_users";
     function getUsers() { const users = localStorage.getItem(usersKey); return users ? JSON.parse(users) : []; }
     function saveUsers(users) { localStorage.setItem(usersKey, JSON.stringify(users)); }
@@ -971,7 +967,7 @@
     function showAuthScreen() { authContainer.style.display = "flex"; appContainer.style.display = "none"; renderAuthForm(); }
     function showAppScreen() { authContainer.style.display = "none"; appContainer.style.display = "block"; userEmailDisplay.innerText = currentUser.email; loadUserTasks(); }
     let isLoginMode = true;
-    function renderAuthForm() { const authFormDiv = document.getElementById("authForm"); if(isLoginMode) { authFormDiv.innerHTML = `<input type="email" id="loginEmail" class="auth-input" placeholder="البريد الإلكتروني"><input type="password" id="loginPassword" class="auth-input" placeholder="كلمة المرور"><div id="authError" class="error-msg"></div><button id="loginBtn" class="auth-btn"><i class="fas fa-sign-in-alt"></i> دخول</button><div class="switch-auth">ليس لديك حساب؟ <span id="showSignup">إنشاء حساب</span></div>`; document.getElementById("loginBtn").addEventListener("click", () => { const email = document.getElementById("loginEmail").value.trim(), pwd = document.getElementById("loginPassword").value; if(!email||!pwd) document.getElementById("authError").innerText="أدخل البريد وكلمة المرور"; else if(login(email,pwd)) { loadUserTasks(); showAppScreen(); } else document.getElementById("authError").innerText="بيانات غير صحيحة"; }); document.getElementById("showSignup").addEventListener("click", () => { isLoginMode=false; renderAuthForm(); }); } else { authFormDiv.innerHTML = `<input type="email" id="signupEmail" class="auth-input" placeholder="البريد الإلكتروني"><input type="password" id="signupPassword" class="auth-input" placeholder="كلمة المرور"><div id="authError" class="error-msg"></div><button id="signupBtn" class="auth-btn"><i class="fas fa-user-plus"></i> تسجيل</button><div class="switch-auth">لديك حساب بالفعل؟ <span id="showLogin">دخول</span></div>`; document.getElementById("signupBtn").addEventListener("click", () => { const email = document.getElementById("signupEmail").value.trim(), pwd = document.getElementById("signupPassword").value; if(!email||!pwd) document.getElementById("authError").innerText="أدخل البريد وكلمة المرور"; else if(pwd.length<4) document.getElementById("authError").innerText="كلمة المرور يجب أن تكون 4 أحرف على الأقل"; else if(signup(email,pwd)) { loadUserTasks(); showAppScreen(); } else document.getElementById("authError").innerText="البريد الإلكتروني موجود بالفعل"; }); document.getElementById("showLogin").addEventListener("click", () => { isLoginMode=true; renderAuthForm(); }); } }
+    function renderAuthForm() { const authFormDiv = document.getElementById("authForm"); if(isLoginMode) { authFormDiv.innerHTML = `<input type="email" id="loginEmail" class="auth-input" placeholder="Email address"><input type="password" id="loginPassword" class="auth-input" placeholder="Password"><div id="authError" class="error-msg"></div><button id="loginBtn" class="auth-btn"><i class="fas fa-sign-in-alt"></i> Login</button><div class="switch-auth">Don't have an account? <span id="showSignup">Create account</span></div>`; document.getElementById("loginBtn").addEventListener("click", () => { const email = document.getElementById("loginEmail").value.trim(), pwd = document.getElementById("loginPassword").value; if(!email||!pwd) document.getElementById("authError").innerText="Enter email and password"; else if(login(email,pwd)) { loadUserTasks(); showAppScreen(); } else document.getElementById("authError").innerText="Invalid credentials"; }); document.getElementById("showSignup").addEventListener("click", () => { isLoginMode=false; renderAuthForm(); }); } else { authFormDiv.innerHTML = `<input type="email" id="signupEmail" class="auth-input" placeholder="Email address"><input type="password" id="signupPassword" class="auth-input" placeholder="Password"><div id="authError" class="error-msg"></div><button id="signupBtn" class="auth-btn"><i class="fas fa-user-plus"></i> Sign Up</button><div class="switch-auth">Already have an account? <span id="showLogin">Login</span></div>`; document.getElementById("signupBtn").addEventListener("click", () => { const email = document.getElementById("signupEmail").value.trim(), pwd = document.getElementById("signupPassword").value; if(!email||!pwd) document.getElementById("authError").innerText="Enter email and password"; else if(pwd.length<4) document.getElementById("authError").innerText="Password min 4 chars"; else if(signup(email,pwd)) { loadUserTasks(); showAppScreen(); } else document.getElementById("authError").innerText="Email already exists"; }); document.getElementById("showLogin").addEventListener("click", () => { isLoginMode=true; renderAuthForm(); }); } }
     logoutBtn.addEventListener("click", logout); addBtn.addEventListener("click", addNewTask); window.openEditModal = openEditModal; window.closeEditModal = closeEditModal; window.saveEditTask = saveEditTask; initFilters(); checkAutoLogin();
   </script>
 </body>
